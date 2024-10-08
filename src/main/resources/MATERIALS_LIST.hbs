@@ -1,0 +1,35 @@
+<html lang="el">
+<head>
+    <style>
+        .center_div {
+            border: 1px solid gray;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
+            background-color: #d0f0f6;
+            text-align: left;
+            padding: 8px;
+        }
+        *,body,html{
+            font-family: "Roboto", sans-serif;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <meta charset="utf-8" />
+</head>
+<body>
+<div class="center_div">
+    <h1>Hello {{customerName}}</h1>
+    <div class="myclass">
+        <p>This is the tutorial to convert html to pdf.</p>
+    </div>
+    {{#each materials}}
+    <div class="center_div">
+        <h6 class="text-success">{{name}}</h6>
+        <h6 class="text-success">{{description}}</h6>
+    </div>
+    {{/each}}
+</div>
+</body>
+</html>
