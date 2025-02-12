@@ -36,6 +36,7 @@ public class MachineFile implements ResourceAuthorizedEntity {
     private String originalFileName;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     @NotNull
     private MachineFileSubType subType;
 
@@ -52,7 +53,7 @@ public class MachineFile implements ResourceAuthorizedEntity {
 
     @JsonIgnore
     @Override
-    public Long getUserId() {
-        return machine.getUserId();
+    public Long getAccountId() {
+        return machine.getAccountId();
     }
 }

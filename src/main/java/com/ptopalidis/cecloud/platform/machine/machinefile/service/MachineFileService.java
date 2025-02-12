@@ -68,7 +68,7 @@ public class MachineFileService {
     private String generateS3KeyFromMachine(Machine machine,MachineFileSubType subType, MultipartFile file){
         return machineFileProperties.getS3directory() +
                 "/" +
-                machine.getMachineuser().getId() +
+                machine.getAccountId() +
                 "/machines/" +
                 machine.getId() +
                 "/" +

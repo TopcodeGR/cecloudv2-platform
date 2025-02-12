@@ -4,7 +4,6 @@ import com.ptopalidis.cecloud.platform.common.exception.GlobalException;
 import com.ptopalidis.cecloud.platform.common.exception.error.MaterialListNotFoundError;
 import com.ptopalidis.cecloud.platform.common.exception.error.SerialNumberNotFoundError;
 import com.ptopalidis.cecloud.platform.common.security.annotation.HasAccessToResource;
-import com.ptopalidis.cecloud.platform.machine.machinefile.domain.MachineFileSubType;
 import com.ptopalidis.cecloud.platform.machine.materialslist.domain.Material;
 import com.ptopalidis.cecloud.platform.machine.materialslist.domain.MaterialsList;
 import com.ptopalidis.cecloud.platform.machine.materialslist.domain.dto.CreateMaterialListDto;
@@ -22,11 +21,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -99,13 +95,4 @@ public class MaterialsListService {
         return materialsListRepository.save(materialsList);
     }
 
-
-    public ByteArrayOutputStream generatePdf(Long serialNumberId) throws IOException {
-        MaterialsList materialsList = materialsListRepository.findBySerialNumberId(serialNumberId)
-                .orElseThrow(()->new GlobalException(new MaterialListNotFoundError()));
-
-        Map<String,Object> params = materialsListTemplateParamsProvider.provideParams(materialsList);
-        return this.pdfGeneratorService.generatePdfFromTemplate(MachineFileSubType.MATERIALS_LIST.toString(),params);
-
-    }
 }

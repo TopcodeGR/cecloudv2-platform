@@ -27,7 +27,7 @@ public class PcdController {
     @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MachineCategory.class)))
     @PostMapping(value = "/machines/{machineId}/serial-numbers/{snId}/pcd", consumes = {MediaType.APPLICATION_JSON_VALUE})
     //@PreAuthorize("hasAuthority('CREATE_MACHINE_CATEGORY')")
-    public ResponseEntity<Pcd> createPcd(@PathVariable Long snId, @RequestBody @Valid CreatePcdDto createPcdDto){
+    public ResponseEntity<Pcd> createPcd(@PathVariable Long machineId, @PathVariable Long snId, @RequestBody @Valid CreatePcdDto createPcdDto){
         return ResponseEntity.ok(this.pcdService.createPcd(snId, createPcdDto));
     }
 }

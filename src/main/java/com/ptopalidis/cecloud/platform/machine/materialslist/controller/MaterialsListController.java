@@ -5,13 +5,13 @@ import com.ptopalidis.cecloud.platform.machine.materialslist.domain.MaterialsLis
 import com.ptopalidis.cecloud.platform.machine.materialslist.domain.dto.CreateMaterialListDto;
 import com.ptopalidis.cecloud.platform.machine.materialslist.domain.dto.UpdateMaterialListDto;
 import com.ptopalidis.cecloud.platform.machine.materialslist.service.MaterialsListService;
+import com.ptopalidis.cecloud.platform.pdfgenerator.service.PdfGeneratorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +24,13 @@ import java.io.IOException;
 public class MaterialsListController {
 
     private final MaterialsListService materialsListService;
+    private final PdfGeneratorService pdfGeneratorService;
 
     @Operation(summary = "Gets the material list of a serial number")
     @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MachineCategory.class)))
     @GetMapping(value = "/machines/{machineId}/serial-numbers/{snId}/materials-list")
     //@PreAuthorize("hasAuthority('CREATE_MACHINE_CATEGORY')")
-    public ResponseEntity<MaterialsList> getMaterialsList(@PathVariable Long snId){
+    public ResponseEntity<MaterialsList> getMaterialsList(@PathVariable Long machineId, @PathVariable Long snId){
         return ResponseEntity.ok(this.materialsListService.getMaterialsListBySerialNumber(snId));
     }
 
@@ -37,7 +38,7 @@ public class MaterialsListController {
     @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MachineCategory.class)))
     @PostMapping(value = "/machines/{machineId}/serial-numbers/{snId}/materials-list", consumes = {MediaType.APPLICATION_JSON_VALUE})
     //@PreAuthorize("hasAuthority('CREATE_MACHINE_CATEGORY')")
-    public ResponseEntity<MaterialsList> createMaterialsList(@PathVariable Long snId, @RequestBody @Valid CreateMaterialListDto createMaterialListDto){
+    public ResponseEntity<MaterialsList> createMaterialsList(@PathVariable Long machineId, @PathVariable Long snId, @RequestBody @Valid CreateMaterialListDto createMaterialListDto){
         return ResponseEntity.ok(this.materialsListService.createMaterialsList(snId, createMaterialListDto));
     }
 
@@ -45,7 +46,7 @@ public class MaterialsListController {
     @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MachineCategory.class)))
     @PutMapping(value = "/machines/{machineId}/serial-numbers/{snId}/materials-list", consumes = {MediaType.APPLICATION_JSON_VALUE})
     //@PreAuthorize("hasAuthority('CREATE_MACHINE_CATEGORY')")
-    public ResponseEntity<MaterialsList> updateMaterialsList(@PathVariable Long snId, @RequestBody @Valid UpdateMaterialListDto updateMaterialListDto){
+    public ResponseEntity<MaterialsList> updateMaterialsList(@PathVariable Long machineId, @PathVariable Long snId, @RequestBody @Valid UpdateMaterialListDto updateMaterialListDto){
         return ResponseEntity.ok(this.materialsListService.updateMaterialsList(snId, updateMaterialListDto));
     }
 
@@ -53,14 +54,11 @@ public class MaterialsListController {
     @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = MediaType.APPLICATION_PDF_VALUE,  schema = @Schema(implementation = MachineCategory.class)))
     @GetMapping(value = "/machines/{machineId}/serial-numbers/{snId}/materials-list/pdf", produces = "application/pdf;charset=UTF-8")
     //@PreAuthorize("hasAuthority('CREATE_MACHINE_CATEGORY')")
-    public ResponseEntity<byte[]> generateMaterialsListPdf(@PathVariable Long snId) throws IOException {
-        ByteArrayOutputStream outputStream = this.materialsListService.generatePdf(snId);
-        HttpHeaders headers = new HttpHeaders();
-        String filename = "output.pdf";
-        headers.setContentDispositionFormData(filename, filename);
-        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-        headers.add("Content-Encoding","UTF-8");
-        headers.add("Content-Type","application/pdf;charset=UTF-8");
-        return ResponseEntity.ok().headers(headers).body(outputStream.toByteArray());
+    public ResponseEntity<byte[]> generateMaterialsListPdf(@PathVariable Long machineId, @PathVariable Long snId) throws IOException {
+
+        MaterialsList materialsList = this.materialsListService.getMaterialsListBySerialNumber(snId);
+        ByteArrayOutputStream outputStream = this.pdfGeneratorService.generatePdf("MATERIALS_LIST",materialsList);
+
+        return ResponseEntity.ok().headers(this.pdfGeneratorService.getPdfHttpHeaders("materials-list.pdf")).body(outputStream.toByteArray());
     }
 }

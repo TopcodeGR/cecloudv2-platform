@@ -35,21 +35,18 @@ public class SerialNumber  implements ResourceAuthorizedEntity {
     @NotBlank
     private String sn;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "serialNumber", cascade = CascadeType.ALL)
     private Doc doc;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "serialNumber", cascade = CascadeType.ALL)
     private Pcd pcd;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "serialNumber", cascade = CascadeType.ALL)
     private MaterialsList materialsList;
 
     @JsonIgnore
     @Override
-    public Long getUserId() {
-        return machine.getUserId();
+    public Long getAccountId() {
+        return machine.getAccountId();
     }
 }

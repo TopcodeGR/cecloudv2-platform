@@ -4,6 +4,7 @@ package com.ptopalidis.cecloud.platform.machine.doc.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ptopalidis.cecloud.platform.common.security.domain.ResourceAuthorizedEntity;
 import com.ptopalidis.cecloud.platform.machine.serialnumber.domain.SerialNumber;
+import com.ptopalidis.cecloud.platform.pdfgenerator.domain.ReportingEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "DOC")
-public class Doc  implements ResourceAuthorizedEntity {
+public class Doc extends ReportingEntity implements ResourceAuthorizedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +32,12 @@ public class Doc  implements ResourceAuthorizedEntity {
 
     @OneToOne()
     @JoinColumn(name = "serial_number", referencedColumnName = "id", unique = true)
+    @JsonIgnore
     private SerialNumber serialNumber;
 
     @JsonIgnore
     @Override
-    public Long getUserId() {
-        return serialNumber.getMachine().getUserId();
+    public Long getAccountId() {
+        return serialNumber.getMachine().getAccountId();
     }
 }

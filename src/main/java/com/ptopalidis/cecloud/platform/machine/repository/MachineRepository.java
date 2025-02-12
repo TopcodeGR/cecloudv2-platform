@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MachineRepository extends JpaRepository<Machine, Long> {
 
-    @Query(value="select m from Machine m INNER JOIN  m.machineuser u WHERE u.id=?1")
-    Page<Machine> findAllByUser(Pageable p, Long userid);
+    @Query(value="select m from Machine m INNER JOIN  m.account a WHERE a.id=?1")
+    Page<Machine> findAllByAccount(Pageable p, Long accountId);
 }

@@ -1,6 +1,5 @@
 package com.ptopalidis.cecloud.platform.machine.materialslist.service;
 
-import com.ptopalidis.cecloud.platform.machine.machinefile.domain.MachineFileSubType;
 import com.ptopalidis.cecloud.platform.machine.materialslist.domain.MaterialsList;
 import com.ptopalidis.cecloud.platform.pdfgenerator.service.TemplateParamsProvider;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +19,6 @@ public class MaterialsListTemplateParamsProvider implements TemplateParamsProvid
 
     @Override
     public String getTemplateName() {
-        return MachineFileSubType.MATERIALS_LIST.toString();
+        return "MATERIALS_LIST";
     }
 }

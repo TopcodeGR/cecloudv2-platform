@@ -27,7 +27,7 @@ public class FileTemplateAsset {
     @Enumerated(EnumType.STRING)
     @Column
     @NotNull
-    private FileTemplateType type;
+    private FileTemplateAssetType type;
 
     @JsonIgnore
     @ManyToOne()

@@ -16,9 +16,9 @@ public enum MachineFileSubType {
     USAGE_MANUALS(MachineFileType.PRESET),
     QUALITY_CONTROL_PLAN(MachineFileType.PRESET),
 
-    DOC(MachineFileType.VARIABLE),
-    PCD(MachineFileType.VARIABLE),
-    MATERIALS_LIST(MachineFileType.VARIABLE);
+    DESIGNS(MachineFileType.MANUAL),
+    COMPONENTS_DECLARATION_OF_COMPLIANCE(MachineFileType.MANUAL),
+    PHOTOS(MachineFileType.MANUAL);
 
     private final MachineFileType fileType;
 

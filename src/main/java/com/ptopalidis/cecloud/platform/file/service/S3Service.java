@@ -22,7 +22,9 @@ public class S3Service {
     }
 
     public PutObjectResult uploadFile(String keyName, MultipartFile file, Optional<CannedAccessControlList> accessControlList) throws IOException {
-        return s3client.putObject(new PutObjectRequest(bucketName, keyName, file.getInputStream(), null)
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
+        return s3client.putObject(new PutObjectRequest(bucketName, keyName, file.getInputStream(), metadata)
                 .withCannedAcl(accessControlList.orElse(CannedAccessControlList.AuthenticatedRead)));
     }
 

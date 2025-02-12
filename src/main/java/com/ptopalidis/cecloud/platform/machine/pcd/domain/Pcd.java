@@ -52,11 +52,12 @@ public class Pcd implements ResourceAuthorizedEntity {
 
     @OneToOne()
     @JoinColumn(name = "serial_number", referencedColumnName = "id", unique = true)
+    @JsonIgnore
     private SerialNumber serialNumber;
 
     @JsonIgnore
     @Override
-    public Long getUserId() {
-        return serialNumber.getMachine().getUserId();
+    public Long getAccountId() {
+        return serialNumber.getMachine().getAccountId();
     }
 }

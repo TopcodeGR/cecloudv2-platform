@@ -3,6 +3,7 @@ package com.ptopalidis.cecloud.platform.machine.materialslist.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ptopalidis.cecloud.platform.common.security.domain.ResourceAuthorizedEntity;
 import com.ptopalidis.cecloud.platform.machine.serialnumber.domain.SerialNumber;
+import com.ptopalidis.cecloud.platform.pdfgenerator.domain.ReportingEntity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "MATERIALS_LIST")
-public class MaterialsList implements ResourceAuthorizedEntity {
+public class MaterialsList extends ReportingEntity implements ResourceAuthorizedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +38,7 @@ public class MaterialsList implements ResourceAuthorizedEntity {
 
     @OneToOne()
     @JoinColumn(name = "serial_number", referencedColumnName = "id", unique = true)
+    @JsonIgnore
     private SerialNumber serialNumber;
 
     @Valid
@@ -45,8 +47,8 @@ public class MaterialsList implements ResourceAuthorizedEntity {
 
     @JsonIgnore
     @Override
-    public Long getUserId() {
-        return serialNumber.getMachine().getUserId();
+    public Long getAccountId() {
+        return serialNumber.getMachine().getAccountId();
     }
 
     public void setMaterials(@Valid List<Material> materials) {

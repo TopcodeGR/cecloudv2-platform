@@ -1,8 +1,9 @@
 package com.ptopalidis.cecloud.platform.machine.service;
 
+import com.ptopalidis.cecloud.platform.account.domain.Account;
 import com.ptopalidis.cecloud.platform.common.exception.GlobalException;
+import com.ptopalidis.cecloud.platform.common.exception.error.AccountNotFoundError;
 import com.ptopalidis.cecloud.platform.common.exception.error.MachineNotFoundError;
-import com.ptopalidis.cecloud.platform.common.exception.error.UserDetailsNotFoundError;
 import com.ptopalidis.cecloud.platform.common.security.annotation.HasAccessToResource;
 import com.ptopalidis.cecloud.platform.common.security.utils.SecurityUtils;
 import com.ptopalidis.cecloud.platform.machine.domain.Machine;
@@ -26,9 +27,8 @@ public class MachinesService {
     private final SecurityUtils securityUtils;
 
     public Page<Machine> findAll(Pageable p){
-        Long userId = securityUtils.extractUserIdFromAuthContext().orElseThrow(()->new GlobalException(new UserDetailsNotFoundError()));
-
-        return this.machineRepository.findAllByUser(p,userId);
+        Account account = securityUtils.extractAccountFromAuthContext().orElseThrow(()->new GlobalException(new AccountNotFoundError()));
+        return this.machineRepository.findAllByAccount(p,account.getId());
     }
 
     @HasAccessToResource

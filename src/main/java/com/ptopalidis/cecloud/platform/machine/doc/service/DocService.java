@@ -1,6 +1,7 @@
 package com.ptopalidis.cecloud.platform.machine.doc.service;
 
 import com.ptopalidis.cecloud.platform.common.exception.GlobalException;
+import com.ptopalidis.cecloud.platform.common.exception.error.DocNotFoundError;
 import com.ptopalidis.cecloud.platform.common.exception.error.SerialNumberNotFoundError;
 import com.ptopalidis.cecloud.platform.common.security.annotation.HasAccessToResource;
 import com.ptopalidis.cecloud.platform.machine.doc.domain.Doc;
@@ -20,6 +21,13 @@ public class DocService {
     private final DocRepository docRepository;
     private final SerialNumberRepository serialNumberRepository;
     private final CreateDocMapper createDocMapper;
+
+
+    @HasAccessToResource
+    public Doc getDocBySerialNumber(Long serialNumberId) {
+        return docRepository.findBySerialNumberId(serialNumberId)
+                .orElseThrow(()->new GlobalException(new DocNotFoundError()));
+    }
 
 
     @Transactional

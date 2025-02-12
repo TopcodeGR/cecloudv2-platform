@@ -12,8 +12,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateDocDto {
-
-
     @NotNull
     private LocalDate issuanceDate;
 

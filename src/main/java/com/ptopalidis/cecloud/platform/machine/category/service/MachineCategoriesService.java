@@ -7,10 +7,10 @@ import com.ptopalidis.cecloud.platform.machine.category.domain.dto.CreateMachine
 import com.ptopalidis.cecloud.platform.machine.category.repository.MachineCategoryRepository;
 import com.ptopalidis.cecloud.platform.machine.category.transform.CreateMachineCategoryMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -23,8 +23,8 @@ public class MachineCategoriesService {
     private final CreateMachineCategoryMapper createMachineCategoryMapper;
 
 
-    public Page<MachineCategory> findAllMachineCategories(Pageable p){
-        return  this.machineCategoryRepository.findAll(p);
+    public List<MachineCategory> findAllMachineCategories(){
+        return  this.machineCategoryRepository.findAll();
     }
 
     @Transactional
