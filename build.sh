@@ -1,6 +1,6 @@
 docker build  --no-cache \
-  --build-arg REPOSILITE_USERNAME=admin \
-  --build-arg REPOSILITE_PASSWORD=Q7dDy5Oc2I3aOrLNW2pL8wt/qeJjirs7Xuwit25bt73wlLCfQ9hXk3Zq8KM14yzg \
+  --build-arg REPOSILITE_USERNAME=$REPOSILITE_USERNAME \
+  --build-arg REPOSILITE_PASSWORD=$REPOSILITE_PASSWORD \
   -t registry.digitalocean.com/topcode/cecloudv2-platform:dev .
 
 
