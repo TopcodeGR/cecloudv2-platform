@@ -3,11 +3,11 @@ package com.ptopalidis.cecloud.platform.machine.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ptopalidis.cecloud.platform.account.domain.Account;
-import com.ptopalidis.cecloud.platform.common.security.domain.ResourceAuthorizedEntity;
-import com.ptopalidis.cecloud.platform.machine.category.domain.MachineCategory;
-import com.ptopalidis.cecloud.platform.machine.machinefile.domain.MachineFile;
-import com.ptopalidis.cecloud.platform.machine.serialnumber.domain.SerialNumber;
+import com.ptopalidis.cecloud.platform.category.domain.MachineCategory;
+import com.ptopalidis.cecloud.platform.machinefile.domain.MachineFile;
+import com.ptopalidis.cecloud.platform.serialnumber.domain.SerialNumber;
+import com.topcode.web.domain.Account;
+import com.topcode.web.domain.ResourceAuthorizedEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

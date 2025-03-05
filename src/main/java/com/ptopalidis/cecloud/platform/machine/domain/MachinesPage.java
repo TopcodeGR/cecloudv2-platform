@@ -1,6 +1,7 @@
 package com.ptopalidis.cecloud.platform.machine.domain;
 
-import com.ptopalidis.cecloud.platform.common.domain.ApiPage;
+
+import com.topcode.web.domain.ApiPage;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Page;
 

@@ -1,15 +1,16 @@
 package com.ptopalidis.cecloud.platform.machine.service;
 
-import com.ptopalidis.cecloud.platform.account.domain.Account;
-import com.ptopalidis.cecloud.platform.common.exception.GlobalException;
-import com.ptopalidis.cecloud.platform.common.exception.error.AccountNotFoundError;
-import com.ptopalidis.cecloud.platform.common.exception.error.MachineNotFoundError;
-import com.ptopalidis.cecloud.platform.common.security.annotation.HasAccessToResource;
-import com.ptopalidis.cecloud.platform.common.security.utils.SecurityUtils;
+
+import com.ptopalidis.cecloud.platform.exception.error.AccountNotFoundError;
+import com.ptopalidis.cecloud.platform.exception.error.MachineNotFoundError;
 import com.ptopalidis.cecloud.platform.machine.domain.Machine;
 import com.ptopalidis.cecloud.platform.machine.domain.dto.UpdateMachineDto;
 import com.ptopalidis.cecloud.platform.machine.repository.MachineRepository;
 import com.ptopalidis.cecloud.platform.machine.transform.UpdateMachineMapper;
+import com.topcode.web.annotation.HasAccessToResource;
+import com.topcode.web.domain.Account;
+import com.topcode.web.exception.GlobalException;
+import com.topcode.web.service.SecurityUtilsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,11 +25,11 @@ public class MachinesService {
 
     private final MachineRepository machineRepository;
     private final UpdateMachineMapper updateMachineMapper;
-    private final SecurityUtils securityUtils;
+    private final SecurityUtilsService securityUtilsService;
 
     public Page<Machine> findAll(Pageable p){
-        Account account = securityUtils.extractAccountFromAuthContext().orElseThrow(()->new GlobalException(new AccountNotFoundError()));
-        return this.machineRepository.findAllByAccount(p,account.getId());
+        Account account = securityUtilsService.extractAccountFromAuthContext().orElseThrow(()->new GlobalException(new AccountNotFoundError()));
+        return this.machineRepository.findAllByAccount(p, account.getId());
     }
 
     @HasAccessToResource
