@@ -4,4 +4,4 @@ docker build  --no-cache \
   -t registry.digitalocean.com/topcode/cecloudv2-platform:dev .
 
 
-docker push registry.digitalocean.com/topcode/cecloudv2-platform:dev
+docker push registry.digitalocean.com/topcode/cecloudv2-platform:$RELEASE_BRANCH
