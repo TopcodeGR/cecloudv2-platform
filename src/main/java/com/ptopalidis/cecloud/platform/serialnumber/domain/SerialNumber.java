@@ -8,7 +8,6 @@ import com.ptopalidis.cecloud.platform.materialslist.domain.MaterialsList;
 import com.ptopalidis.cecloud.platform.pcd.domain.Pcd;
 import com.topcode.web.domain.ResourceAuthorizedEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -32,7 +31,6 @@ public class SerialNumber  implements ResourceAuthorizedEntity {
     private Machine machine;
 
     @Column(nullable = false)
-    @NotBlank
     private String sn;
 
     @OneToOne(mappedBy = "serialNumber", cascade = CascadeType.ALL)

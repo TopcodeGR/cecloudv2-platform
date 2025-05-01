@@ -4,6 +4,42 @@
     <include file="db/changelog/web.xml" />
     <include file="db/changelog/pdf-generator.xml" />
 
+    <changeSet id="standard_table" author="topal">
+        <sql>
+            CREATE TABLE standard (
+                                      id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                                      name VARCHAR(255) NOT NULL,
+                                      doc_file_template BIGINT NOT NULL,
+                                      CONSTRAINT fk_doc_file_template FOREIGN KEY(doc_file_template) REFERENCES file_template(id) ON DELETE CASCADE ON UPDATE CASCADE
+            );
+        </sql>
+        <rollback>
+            DROP TABLE IF EXISTS material;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="add_inheritance_account_table_columns" author="topal">
+        <sql>
+            ALTER TABLE account ADD afm  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD business_name  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD country  VARCHAR(255) NOT NULL default 'GR';
+            ALTER TABLE account ADD city  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD address  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD address_number  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD doi  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD phone  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD logo  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD signature  VARCHAR(255) NOT NULL default '';
+            alter table account add dtype varchar(31) not null default 'CECloudv2Account';
+        </sql>
+        <rollback>
+            ALTER TABLE account
+                DROP COLUMN  afm;
+            ALTER TABLE account
+                DROP COLUMN  dtype;
+        </rollback>
+    </changeSet>
+
     <changeSet id="machine_category_table" author="topal">
         <sql>
             CREATE TABLE machine_category (
@@ -24,8 +60,9 @@
                 name VARCHAR(255) NOT NULL,
                 type VARCHAR(255) NOT NULL,
                 serialnumber VARCHAR(255) NOT NULL,
-                standard VARCHAR(255) NOT NULL,
-                CONSTRAINT fk_account FOREIGN KEY(account) REFERENCES account(id) ON DELETE CASCADE ON UPDATE CASCADE
+                standard BIGINT NOT NULL,
+                CONSTRAINT fk_account FOREIGN KEY(account) REFERENCES account(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                CONSTRAINT fk_standard FOREIGN KEY(standard) REFERENCES standard(id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         </sql>
         <rollback>

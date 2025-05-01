@@ -6,8 +6,7 @@ import com.ptopalidis.cecloud.platform.serialnumber.domain.SerialNumber;
 import com.topcode.pdfgenerator.domain.ReportingEntity;
 import com.topcode.web.domain.ResourceAuthorizedEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -15,6 +14,9 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "DOC")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Doc extends ReportingEntity implements ResourceAuthorizedEntity {
 
     @Id

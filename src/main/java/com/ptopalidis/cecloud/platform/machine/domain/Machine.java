@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ptopalidis.cecloud.platform.category.domain.MachineCategory;
 import com.ptopalidis.cecloud.platform.machinefile.domain.MachineFile;
 import com.ptopalidis.cecloud.platform.serialnumber.domain.SerialNumber;
+import com.ptopalidis.cecloud.platform.standard.domain.Standard;
 import com.topcode.web.domain.Account;
 import com.topcode.web.domain.ResourceAuthorizedEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 @Setter
 @Getter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "MACHINE")
 public class Machine implements ResourceAuthorizedEntity {
     @Id
@@ -41,8 +44,9 @@ public class Machine implements ResourceAuthorizedEntity {
     @Column(nullable = false)
     private String serialnumber;
 
-    @Column(nullable = false)
-    private String standard;
+    @ManyToOne()
+    @JoinColumn(name = "standard", referencedColumnName = "id", unique = true)
+    private Standard standard;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "MACHINE_MACHINE_CATEGORY", joinColumns = @JoinColumn(name = "machine"), inverseJoinColumns = @JoinColumn(name = "category"))

@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateMachineDto {
+public class CreateMachineDto {
 
     private String name;
 

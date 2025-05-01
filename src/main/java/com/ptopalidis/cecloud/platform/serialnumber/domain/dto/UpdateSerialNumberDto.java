@@ -1,6 +1,5 @@
 package com.ptopalidis.cecloud.platform.serialnumber.domain.dto;
 
-
 import lombok.*;
 
 @Getter
@@ -8,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateSerialNumberDto {
+public class UpdateSerialNumberDto {
 
     private String sn;
 }

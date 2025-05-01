@@ -8,8 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface MachineRepository extends JpaRepository<Machine, Long> {
+
+
+    Optional<Machine> findBySerialnumber(String serialnumber);
 
     @Query(value="select m from Machine m INNER JOIN  m.account a WHERE a.id=?1")
     Page<Machine> findAllByAccount(Pageable p, Long accountId);

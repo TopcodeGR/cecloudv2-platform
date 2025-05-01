@@ -13,6 +13,7 @@ import com.topcode.web.exception.GlobalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -35,8 +36,34 @@ public class DocService {
     public Doc createDoc(Long serialNumberId, CreateDocDto createDocDto){
         SerialNumber serialNumber = serialNumberRepository.findById(serialNumberId).orElseThrow(()->new GlobalException(new SerialNumberNotFoundError()));
 
-        Doc doc = createDocMapper.toEntity(createDocDto);
-        doc.setSerialNumber(serialNumber);
+
+        Doc doc = Doc
+                .builder()
+                .serialNumber(serialNumber)
+                .issuanceDate(createDocDto.getIssuanceDate())
+                .productionDate(createDocDto.getProductionDate())
+                .productionManager(createDocDto.getProductionManager())
+                .build();
+        //Doc doc = createDocMapper.toEntity(createDocDto);
+       // doc.setSerialNumber(serialNumber);
+
+        return docRepository.save(doc);
+    }
+
+    @Transactional
+    @HasAccessToResource
+    public Doc updateDoc(Long serialNumberId, CreateDocDto createDocDto){
+        SerialNumber serialNumber = serialNumberRepository.findById(serialNumberId).orElseThrow(()->new GlobalException(new SerialNumberNotFoundError()));
+
+        Doc doc = serialNumber.getDoc();
+
+
+        if (ObjectUtils.isEmpty(doc)) {
+            throw  new GlobalException(new DocNotFoundError());
+        }
+        doc.setProductionDate(createDocDto.getProductionDate());
+        doc.setProductionManager(createDocDto.getProductionManager());
+        doc.setIssuanceDate(createDocDto.getIssuanceDate());
 
         return docRepository.save(doc);
     }
