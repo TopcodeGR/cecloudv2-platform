@@ -28,8 +28,8 @@
             ALTER TABLE account ADD address_number  VARCHAR(255) NOT NULL default '';
             ALTER TABLE account ADD doi  VARCHAR(255) NOT NULL default '';
             ALTER TABLE account ADD phone  VARCHAR(255) NOT NULL default '';
-            ALTER TABLE account ADD logo  VARCHAR(255) NOT NULL default '';
-            ALTER TABLE account ADD signature  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE account ADD logo  VARCHAR(255)  default '';
+            ALTER TABLE account ADD signature  VARCHAR(255) default '';
             alter table account add dtype varchar(31) not null default 'CECloudv2Account';
         </sql>
         <rollback>
