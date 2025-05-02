@@ -1,6 +1,7 @@
 package com.ptopalidis.cecloud.platform.machine.domain.dto;
 
-import com.ptopalidis.cecloud.platform.machine.category.domain.MachineCategory;
+import com.ptopalidis.cecloud.platform.category.domain.MachineCategory;
+import com.ptopalidis.cecloud.platform.standard.domain.Standard;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class UpdateMachineDto {
 
     private String serialnumber;
 
-    private String standard;
+    private Standard standard;
 
     private List<MachineCategory> categories = new ArrayList<>();
 }
