@@ -24,6 +24,8 @@ COPY src src
 # If tests pass, proceed with packaging
 RUN chmod +x ./mvnw
 RUN sed -i 's/\r$//' mvnw
+RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install-deps"
+RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install"
 RUN ./mvnw clean package
 
 # ---- Stage 2: Create the final image ----
