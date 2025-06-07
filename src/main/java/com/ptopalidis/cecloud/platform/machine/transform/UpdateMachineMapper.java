@@ -14,6 +14,6 @@ public interface UpdateMachineMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "categories", ignore = true)
-    @Mapping(target = "standard", ignore = true)
+    @Mapping(target = "directive", ignore = true)
     void updateMachineFromDto(UpdateMachineDto updateMachineDto, @MappingTarget Machine machine);
 }

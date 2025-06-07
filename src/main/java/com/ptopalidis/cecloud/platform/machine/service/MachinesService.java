@@ -66,6 +66,7 @@ public class MachinesService {
                 .account(account)
                 .type(createMachineDto.getType())
                 .serialnumber(createMachineDto.getSerialnumber())
+                .directive(createMachineDto.getDirective())
                 .standard(createMachineDto.getStandard())
                 .categories(createMachineDto.getCategories())
                 .build();
@@ -87,7 +88,7 @@ public class MachinesService {
             machine.setCategories(updatedMachine.getCategories());
         }
 
-        machine.setStandard(updatedMachine.getStandard());
+        machine.setDirective(updatedMachine.getDirective());
 
         return machineRepository.save(machine);
     }

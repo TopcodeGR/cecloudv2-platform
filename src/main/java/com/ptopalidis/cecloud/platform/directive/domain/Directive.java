@@ -1,4 +1,4 @@
-package com.ptopalidis.cecloud.platform.standard.domain;
+package com.ptopalidis.cecloud.platform.directive.domain;
 
 import com.topcode.pdfgenerator.domain.FileTemplate;
 import jakarta.persistence.*;
@@ -11,8 +11,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "STANDARD")
-public class Standard {
+@Table(name = "DIRECTIVE")
+public class Directive {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

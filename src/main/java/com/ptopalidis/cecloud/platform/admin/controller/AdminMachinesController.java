@@ -3,6 +3,7 @@ package com.ptopalidis.cecloud.platform.admin.controller;
 import com.google.zxing.WriterException;
 import com.ptopalidis.cecloud.platform.category.domain.MachineCategory;
 import com.ptopalidis.cecloud.platform.category.service.MachineCategoriesService;
+import com.ptopalidis.cecloud.platform.directive.domain.Directive;
 import com.ptopalidis.cecloud.platform.doc.domain.Doc;
 import com.ptopalidis.cecloud.platform.doc.service.DocService;
 import com.ptopalidis.cecloud.platform.machine.domain.Machine;
@@ -15,8 +16,7 @@ import com.ptopalidis.cecloud.platform.machinefile.domain.MachineFileSubType;
 import com.ptopalidis.cecloud.platform.machinefile.service.MachineFileService;
 import com.ptopalidis.cecloud.platform.serialnumber.domain.SerialNumber;
 import com.ptopalidis.cecloud.platform.serialnumber.service.SerialNumberService;
-import com.ptopalidis.cecloud.platform.standard.domain.Standard;
-import com.ptopalidis.cecloud.platform.standard.service.StandardService;
+import com.ptopalidis.cecloud.platform.directive.service.DirectiveService;
 import com.topcode.pdfgenerator.service.PdfGeneratorService;
 import com.topcode.web.annotation.IsAdmin;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,7 +45,7 @@ public class AdminMachinesController {
     private final MachinesService machinesService;
     private final MachineCategoriesService machineCategoriesService;
     private final SerialNumberService serialNumberService;
-    private final StandardService standardService;
+    private final DirectiveService directiveService;
     private final MachineFileService machineFileService;
     private final DocService docService;
     private final PdfGeneratorService pdfGeneratorService;
@@ -128,12 +128,12 @@ public class AdminMachinesController {
         return ResponseEntity.ok().body(qrCode);
     }
 
-    @Operation(summary = "Gets machines")
-    @ApiResponse(responseCode="200", description = "OK", content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,   array = @ArraySchema(schema = @Schema(implementation = Standard.class)))})
-    @GetMapping("/admin/standards")
+    @Operation(summary = "Gets directives")
+    @ApiResponse(responseCode="200", description = "OK", content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,   array = @ArraySchema(schema = @Schema(implementation = Directive.class)))})
+    @GetMapping("/admin/directives")
     @IsAdmin
-    public ResponseEntity<List<Standard>> getStandards(){
-        return ResponseEntity.status(200).body(standardService.findAllStandards());
+    public ResponseEntity<List<Directive>> getDirectives(){
+        return ResponseEntity.status(200).body(directiveService.findAllDirectives());
     }
 
     @Operation(summary = "Upload a machine file")

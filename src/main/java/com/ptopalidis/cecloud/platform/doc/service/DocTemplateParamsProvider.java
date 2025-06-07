@@ -13,7 +13,10 @@ public class DocTemplateParamsProvider implements TemplateParamsProvider<Doc> {
 
     @Override
     public Map<String, Object> provideParams(Doc doc) {
-        return Map.of("productionManager",doc.getProductionManager());
+        return Map.of("doc",doc,
+                "serialNumber", doc.getSerialNumber(),
+                "machine", doc.getSerialNumber().getMachine(),
+                "account", doc.getSerialNumber().getMachine().getAccount());
     }
 
     @Override

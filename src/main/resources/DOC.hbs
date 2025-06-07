@@ -1,28 +1,195 @@
 <html lang="el">
 <head>
     <style>
-        .center_div {
-            border: 1px solid gray;
-            margin-left: auto;
-            margin-right: auto;
-            width: 90%;
-            background-color: #d0f0f6;
-            text-align: left;
-            padding: 8px;
+        p{
+            margin:1.6px;
+        }
+        body,html {
+            margin:0;
+            padding: 0;
         }
         *,body,html{
-            font-family: "Inter", sans-serif;
+            font-family: "Calibri", sans-serif;
         }
+
+        li:not(:last-child) {
+            margin:0;
+        }
+
     </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
 </head>
 <body>
-<div class="center_div">
-    <h1>Hello {{productionManager}}</h1>
-    <div class="myclass">
-        <p>This is the tutorial to convert html to pdf.</p>
+
+<div style="height:100%;display: flex; flex-direction: column; justify-content: space-between;">
+    <div style="height: 112px;bottom: 0;justify-self: flex-end; display: flex;">
+
+        <div style= "width:70%;height: 112px;background-color:  #006E95; background: #006E95;">
+
+        </div>
+        <div style="   background-color:  #C5C6C6;
+            height: 112px;
+            width:  112px;
+            display: flex;
+            align-items: center;
+            justify-content: center;">
+
+        </div>
+        <div style="     flex:1;
+            height:  112px;
+            display: flex;
+            flex-direction: column;">
+            <div style="   flex:1;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            height: 48px;
+            background-color:  #006E95;">
+
+            </div>
+            <div style="  height: 112px;
+            background-color:  #006E95;">
+
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; gap:16px; margin-right: 32px;  align-items: center">
+        <hr style="border:1px solid #006E95; flex-grow: 1; height: 0"/>
+        <p style="font-weight: bold; font-size: 24px">EE Δήλωση Συμμόρφωσης <br> EU Declaration of Conformity</p>
+    </div>
+
+    <div >
+        <div style="display: flex; flex-wrap: wrap;margin-left: 32px; margin-right: 32px;  column-gap: 16px; ">
+            <div style="flex: 1 1 100%;">
+                <div>
+                    <p><b>1. </b>Όνομα και διεύθυνση του κατασκευαστή ή του εξουσιοδοτημένου αντιπροσώπου:
+                        Name and address of the manufacturer or his authorized representa
+                        ve:</p>
+                    <div style="height: 24px;background-color: #D9DADA;">{{doc.productionManager}}</div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div>
+                    <p><b>2. </b>Η παρούσα δήλωση συμμόρφωσης εκδίδεται υπό την αποκλειστική ευθύνη του κατασκευαστή
+                        This declaration of conformity is issued under the sole responsibility of the manufacturer.</p>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; gap: 16px;">
+                    <p><b>3. </b>Ονομασία προϊόντος<br>Product name</p>
+                    <div style="height: 16px;background-color: #D9DADA; flex-grow: 1; " >{{machine.name}}</div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; gap: 16px;">
+                    <p><b>4. </b>Tύπος-Αριθμός σειράς<br>Type-Serial number</p>
+                    <div style="height: 32px;background-color: #D9DADA; flex-grow: 1;">{{serialNumber.sn}}</div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; gap:16px;">
+                    <p ><b>5. </b>Tοποθεσία χρήσης ανυψωτικού<br>Place of use and address of lifting machine</p>
+                    <div style="height: 32px;background-color: #D9DADA; flex-grow: 1;"></div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p><b>6. </b>Tο αντικείμενο της δήλωσης που περιγράφηκε παραπάνω είναι εναρμονισμένο με τη σχετική
+                        ενωσιακή νομοθεσία<br>The object of the declaraon described above is in
+                        conformity with the relevant Union harmonisation
+                        legislation</p>
+                    <div style="height: 48px;background-color: #D9DADA; flex-grow: 1;"></div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p> <b>7. </b>Αναφορές στα σχετικά εναρμονισμένα πρότυπα που
+                        χρησιμοποιούνται ή σε άλλες τεχνικές προδιαγραφές
+                        σε σχέση με τα οποία δηλώνεται η συμμόρφωση<br>References to the relevant harmonised standards used
+                        or references to the other technicsal specifications in
+                        relation to which conformity is declared:</p>
+                    <div style="height: 48px;background-color: #D9DADA; flex-grow: 1;"></div>
+                </div>
+            </div>
+
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p ><b>8. </b>Διαπιστευμένος-Κοινοποιημένος Οργανισμός ( ονομασία-αρ.διαπίστευσης) που διενήργησε
+                        έλεγχο και εξέδωσε πιστοποιητικό (αρ.) για την αξιολόγηση της συμμόρφωσης<br>Accredited - Nofied Body (name - accreditaon number) which carried out the verificaon and
+                        issued a cerficate (no.) for the assessment of conformity
+                    </p>
+                    <div style="height: 32px;background-color: #D9DADA"></div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p ><b>9. </b>Αξιολόγηση της συμμόρφωσης βάσει εσωτερικού ελέγχου της παραγωγής
+                        <br>Conformity assessment procedure based on internal producon contro
+                    </p>
+                    <div style="height: 32px;background-color: #D9DADA"></div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; gap: 16px;">
+                    <div style="flex:1;display: flex; flex-direction: column;">
+                        <p ><b>10. </b>Πρόσθετες Πληροφορίες
+                            <br>Adional Informaon
+
+                        </p>
+                        <p style="font-size: 8px;">
+                            Όνομα και διεύθυνση του εξουσιοδοτημένου να καταρτίσει τον τεχνικό φάκελο
+                            <br>name and address of the person authorised to compile the technical file
+                        </p>
+
+                    </div>
+                    <div style="flex:1;display: flex; flex-direction: column;">
+                        <p style="font-size: 8px;">
+                            Υπογραφή για λογαριασμό και εξ ονόματος του κατασκευαστή
+                            <br>Signed and of behalf of manufacture
+                        </p>
+
+                        <div style="width:100%;height: 48px; border-bottom: 2px solid  #006E95;">
+                            <img style="width: 6rem; height: 3rem;" src="{{account.signature}}"/>
+                        </div>
+
+                        <p style="font-size: 8px;">
+                            Τόπος & ημερομηνία
+                            <br>Place & date
+                        </p>
+                        <div style="height: 16px;background-color: #D9DADA"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div style="margin-top: 16px;height: 112px; bottom: 0; justify-self: flex-end; display: flex;">
+
+        <div style="width:70%;height: 112px;display: flex; flex-direction: column;">
+            <div style="flex:1;display:flex; align-items:center; justify-content:center; height: 48px; background-color:  #006E95; ">
+                <h1 style="color: #268DB3; font-weight: bold;">EU Declaration of Conformity</h1>
+            </div>
+            <div style="height: 64px; background-color:  #C5C6C6;">
+
+            </div>
+        </div>
+        <div style="background-color:  #C5C6C6; height: 112px; width: 122px; border-left: 8px solid white; border-right: 8px solid white; display: flex; align-items: center; justify-content: center;">
+            <p style="font-weight: bold; font-size: 80px; color: white;">CE</p>
+        </div>
+        <div style="flex:1;height: 112px;display: flex; flex-direction: column;">
+            <div style="flex:1;display:flex; align-items:center; justify-content:center; height: 48px; background-color:  #006E95; ">
+
+            </div>
+            <div style="flex:1;height: 64px; background-color:  #C5C6C6;">
+
+            </div>
+        </div>
     </div>
 </div>
+
 </body>
 </html>

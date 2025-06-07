@@ -65,6 +65,8 @@ public class SerialNumberService {
             SerialNumber serialNumber = createSerialNumberMapper.toEntity(serialNumberDto);
             serialNumber.setMachine(machine);
             SerialNumber savedSerialNumber = this.serialNumberRepository.save(serialNumber);
+            savedSerialNumber.setSn(String.valueOf(savedSerialNumber.getId()));
+            savedSerialNumber = this.serialNumberRepository.save(serialNumber);
             serialNumbers.add(savedSerialNumber);
         }
 

@@ -33,10 +33,17 @@
             alter table account add dtype varchar(31) not null default 'CECloudv2Account';
         </sql>
         <rollback>
-            ALTER TABLE account
-                DROP COLUMN  afm;
-            ALTER TABLE account
-                DROP COLUMN  dtype;
+            ALTER TABLE account DROP COLUMN  afm;
+            ALTER TABLE account DROP COLUMN  business_name;
+            ALTER TABLE account DROP COLUMN  country;
+            ALTER TABLE account DROP COLUMN  city;
+            ALTER TABLE account DROP COLUMN  address;
+            ALTER TABLE account DROP COLUMN  address_number;
+            ALTER TABLE account DROP COLUMN  doi;
+            ALTER TABLE account DROP COLUMN  phone;
+            ALTER TABLE account DROP COLUMN  logo;
+            ALTER TABLE account DROP COLUMN  signature;
+            ALTER TABLE account DROP COLUMN  dtype;
         </rollback>
     </changeSet>
 
@@ -182,6 +189,62 @@
             DROP TABLE IF EXISTS material;
         </rollback>
     </changeSet>
-
+    <changeSet id="rename_standard_column_to_directive" author="topal">
+        <sql>
+            ALTER TABLE standard RENAME TO directive;
+            ALTER TABLE directive ADD directive_type  VARCHAR(255) NOT NULL default '';
+            ALTER TABLE machine RENAME standard TO directive;
+        </sql>
+        <rollback>
+            ALTER TABLE machine RENAME directive TO standard;
+            ALTER TABLE directive DROP COLUMN directive_type;
+            ALTER TABLE directive RENAME TO standard;
+        </rollback>
+    </changeSet>
+    <changeSet id="add_column_standard_to_machine_table" author="topal">
+        <sql>
+            ALTER TABLE machine ADD standard  VARCHAR(255) NOT NULL default '';
+        </sql>
+        <rollback>
+            ALTER TABLE machine DROP COLUMN standard;
+        </rollback>
+    </changeSet>
+    <changeSet id="insert_authorities" author="topal">
+        <sql>
+            INSERT INTO authority(authority_code, authority_scope, authority_domain)
+            VALUES ('GET_MACHINES', 'VIEW', 'MACHINES'),
+                   ('GET_MACHINE', 'VIEW', 'MACHINES'),
+                   ('UPDATE_MACHINE', 'PROCESS', 'MACHINES'),
+                   ('GET_MACHINE_CATEGORIES', 'VIEW', 'MACHINES'),
+                   ('UPLOAD_MACHINE_FILE', 'PROCESS', 'MACHINES'),
+                   ('DELETE_MACHINE_FILE', 'PROCESS', 'MACHINES'),
+                   ('CREATE_MACHINE', 'PROCESS', 'MACHINES'),
+                   ('DELETE_MACHINE', 'PROCESS', 'MACHINES'),
+                   ('GET_SERIAL_NUMBER', 'VIEW', 'SERIAL_NUMBERS'),
+                   ('UPDATE_DOC', 'PROCESS', 'DOC'),
+                   ('CREATE_DOC', 'PROCESS', 'DOC'),
+                   ('GENERATE_DOC_PDF', 'VIEW', 'DOC'),
+                   ('GET_STANDARDS', 'VIEW', 'STANDARDS'),
+                   ('UPDATE_SERIAL_NUMBER', 'PROCESS', 'SERIAL_NUMBERS');
+        </sql>
+        <rollback>
+            DELETE FROM authority WHERE authority_code in (
+                'GET_MACHINES',
+                'GET_MACHINE',
+                'UPDATE_MACHINE',
+                'GET_MACHINE_CATEGORIES',
+                'UPLOAD_MACHINE_FILE',
+                'DELETE_MACHINE_FILE',
+                'CREATE_MACHINE',
+                'DELETE_MACHINE',
+                'GET_SERIAL_NUMBER',
+                'UPDATE_DOC',
+                'CREATE_DOC',
+                'GENERATE_DOC_PDF',
+                'GET_STANDARDS',
+                'UPDATE_SERIAL_NUMBER'
+            );
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
 

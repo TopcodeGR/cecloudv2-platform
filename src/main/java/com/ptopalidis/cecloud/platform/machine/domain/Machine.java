@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ptopalidis.cecloud.platform.category.domain.MachineCategory;
 import com.ptopalidis.cecloud.platform.machinefile.domain.MachineFile;
 import com.ptopalidis.cecloud.platform.serialnumber.domain.SerialNumber;
-import com.ptopalidis.cecloud.platform.standard.domain.Standard;
+import com.ptopalidis.cecloud.platform.directive.domain.Directive;
 import com.topcode.web.domain.Account;
 import com.topcode.web.domain.ResourceAuthorizedEntity;
 import jakarta.persistence.*;
@@ -44,9 +44,13 @@ public class Machine implements ResourceAuthorizedEntity {
     @Column(nullable = false)
     private String serialnumber;
 
+    @Column(nullable = false)
+    private String standard;
+
+
     @ManyToOne()
-    @JoinColumn(name = "standard", referencedColumnName = "id", unique = true)
-    private Standard standard;
+    @JoinColumn(name = "directive", referencedColumnName = "id", unique = true)
+    private Directive directive;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "MACHINE_MACHINE_CATEGORY", joinColumns = @JoinColumn(name = "machine"), inverseJoinColumns = @JoinColumn(name = "category"))
