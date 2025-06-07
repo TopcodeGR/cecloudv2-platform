@@ -1,5 +1,5 @@
 # ---- Stage 1: Build & Test ----
-FROM eclipse-temurin:17-jdk-alpine AS build
+FROM eclipse-temurin:17-jdk AS build
 
 WORKDIR /app
 
@@ -27,7 +27,7 @@ RUN sed -i 's/\r$//' mvnw
 RUN ./mvnw clean package
 
 # ---- Stage 2: Create the final image ----
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
