@@ -246,5 +246,51 @@
             );
         </rollback>
     </changeSet>
+    <changeSet id="insert_functionalities" author="topal">
+        <sql>
+            INSERT INTO functionality(ui_title, code, enabled, ui_path)
+            VALUES ('view-my-machines', 'VIEW_MY_MACHINES', true, '/machines'),
+                   ('process-machine', 'PROCESS_MACHINE', true, '/machines/{id}');
+
+            INSERT INTO functionality_authority(functionality, authority)
+            SELECT f.id, a.id
+            FROM functionality f JOIN authority a
+            ON (
+                (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_MACHINES') OR
+                (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_MACHINE') OR
+                (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_MACHINE_CATEGORIES') OR
+                (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_SERIAL_NUMBER') OR
+                (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GENERATE_DOC_PDF') OR
+                (f.code='PROCESS_MACHINE' AND a.authority_code = 'DELETE_MACHINE_FILE') OR
+                (f.code='PROCESS_MACHINE' AND a.authority_code = 'UPDATE_MACHINE') OR
+                (f.code='PROCESS_MACHINE' AND a.authority_code = 'UPDATE_DOC') OR
+                (f.code='PROCESS_MACHINE' AND a.authority_code = 'CREATE_DOC') OR
+                (f.code='PROCESS_MACHINE' AND a.authority_code = 'UPDATE_SERIAL_NUMBER')
+            );
+
+        </sql>
+
+        <rollback>
+            DELETE FROM functionality_authority fa
+            USING functionality f, authority a
+            WHERE fa.functionality = f.id
+            AND fa.authority = a.id
+            AND (
+            (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_MACHINES') OR
+            (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_MACHINE') OR
+            (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_MACHINE_CATEGORIES') OR
+            (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GET_SERIAL_NUMBER') OR
+            (f.code='VIEW_MY_MACHINES' AND a.authority_code = 'GENERATE_DOC_PDF') OR
+            (f.code='PROCESS_MACHINE' AND a.authority_code = 'DELETE_MACHINE_FILE') OR
+            (f.code='PROCESS_MACHINE' AND a.authority_code = 'UPDATE_MACHINE') OR
+            (f.code='PROCESS_MACHINE' AND a.authority_code = 'UPDATE_DOC') OR
+            (f.code='PROCESS_MACHINE' AND a.authority_code = 'CREATE_DOC') OR
+            (f.code='PROCESS_MACHINE' AND a.authority_code = 'UPDATE_SERIAL_NUMBER')
+            );
+
+            DELETE FROM functionality WHERE
+            code in ('VIEW_MY_MACHINES', 'PROCESS_MACHINE');
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
 

@@ -2,6 +2,7 @@ package com.ptopalidis.cecloud.platform.admin.controller;
 
 
 import com.ptopalidis.cecloud.platform.account.domain.CECloudv2Account;
+import com.ptopalidis.cecloud.platform.account.domain.CECloudv2AccountUpdateDTO;
 import com.ptopalidis.cecloud.platform.account.service.CECloudv2AccountService;
 import com.topcode.web.annotation.IsAdmin;
 import com.topcode.web.service.AccountService;
@@ -47,10 +48,10 @@ public class AdminAccountController {
     @PutMapping(path="/admin/users/{userId}/account", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @IsAdmin
     public ResponseEntity<CECloudv2Account> updateUserAccount(@PathVariable String userId,
-                                                              @RequestPart("account") CECloudv2Account account,
+                                                              @RequestPart("account") CECloudv2AccountUpdateDTO accountUpdateDTO,
                                                               @RequestPart(value="logo", required=false) MultipartFile logo,
                                                               @RequestPart(value="signature", required = false) MultipartFile signature) throws IOException {
-        return ResponseEntity.status(200).body(this.ceCloudv2AccountService.updateAccount(account,logo,signature,userId));
+        return ResponseEntity.status(200).body(this.ceCloudv2AccountService.updateAccount(accountUpdateDTO,logo,signature,userId));
     }
 
     @Operation(summary = "Gets an account's authorities")

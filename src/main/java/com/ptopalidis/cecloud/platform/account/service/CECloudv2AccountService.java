@@ -2,6 +2,8 @@ package com.ptopalidis.cecloud.platform.account.service;
 
 
 import com.ptopalidis.cecloud.platform.account.domain.CECloudv2Account;
+import com.ptopalidis.cecloud.platform.account.domain.CECloudv2AccountUpdateDTO;
+import com.ptopalidis.cecloud.platform.account.mapper.CECloudv2AccountMapper;
 import com.ptopalidis.cecloud.platform.machinefile.config.MachineFileProperties;
 import com.topcode.files.service.S3Service;
 import com.topcode.web.service.AccountService;
@@ -21,8 +23,11 @@ public class CECloudv2AccountService {
     private final MachineFileProperties machineFileProperties;
     private final AccountService<CECloudv2Account> accountService;
     private final S3Service s3Service;
+    private final CECloudv2AccountMapper ceCloudv2AccountMapper;
 
-    public CECloudv2Account updateAccount(CECloudv2Account account, MultipartFile logo, MultipartFile signature, String userId) throws IOException {
+    public CECloudv2Account updateAccount(CECloudv2AccountUpdateDTO accountUpdateDTO, MultipartFile logo, MultipartFile signature, String userId) throws IOException {
+
+        CECloudv2Account account = accountService.findByUserId(userId);
 
         if(logo != null) {
             String logos3Key = generateS3KeyFromAccount(account,logo, "logo");
@@ -42,6 +47,7 @@ public class CECloudv2AccountService {
             account.setSignature(signatureUrl);
         }
 
+        ceCloudv2AccountMapper.updateAccountFromDto(accountUpdateDTO, account);
 
         return accountService.saveAccount(account,userId);
 

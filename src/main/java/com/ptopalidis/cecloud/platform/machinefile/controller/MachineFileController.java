@@ -32,7 +32,7 @@ public class MachineFileController {
     @Operation(summary = "Delete a machine file")
     @ApiResponse(responseCode="200", description = "OK", content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Void.class))})
         @DeleteMapping(path = "/machines/{id}/files/{subType}/{fileId}")
-    @RequiredAuthorities(authorities = {"UPLOAD_MACHINE_FILE"})
+    @RequiredAuthorities(authorities = {"DELETE_MACHINE_FILE"})
     public ResponseEntity<Void> deleteMachineFile(@PathVariable Long id, @PathVariable MachineFileSubType subType,@PathVariable Long fileId){
         this.machineFileService.deleteMachineFile(fileId);
         return ResponseEntity.status(200).build();
