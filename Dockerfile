@@ -38,6 +38,7 @@ COPY --from=build /app/mvnw mvnw
 COPY --from=build /app/pom.xml pom.xml
 COPY --from=build /root/.m2/settings.xml /root/.m2/settings.xml
 
+
 RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     libnss3 \
@@ -56,6 +57,8 @@ RUN apt-get update && apt-get install -y \
     libxcb1 \
     libxkbcommon0 \
     libasound2t64 \
+    libpango-1.0-0 \
+    libcairo2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 4003
