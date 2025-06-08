@@ -35,6 +35,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar platform.jar
 COPY --from=build /app/.mvn .mvn
 COPY --from=build /app/mvnw mvnw
+COPY --from=build /app/pom.xml pom.xml
 
 RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install-deps"
 RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install"
