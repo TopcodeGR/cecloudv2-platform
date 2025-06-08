@@ -55,7 +55,7 @@ RUN apt-get update && apt-get install -y \
     libgbm1 \
     libxcb1 \
     libxkbcommon0 \
-    libasound2 \
+    libasound2t64 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 4003
