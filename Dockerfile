@@ -59,6 +59,7 @@ RUN apt-get update && apt-get install -y \
     libasound2t64 \
     libpango-1.0-0 \
     libcairo2 \
+    libcups2t64 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 4003
