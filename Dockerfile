@@ -24,8 +24,6 @@ COPY src src
 # If tests pass, proceed with packaging
 RUN chmod +x ./mvnw
 RUN sed -i 's/\r$//' mvnw
-RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install-deps"
-RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install"
 RUN ./mvnw clean package
 
 # ---- Stage 2: Create the final image ----
@@ -35,6 +33,11 @@ WORKDIR /app
 
 # Copy only the built JAR
 COPY --from=build /app/target/*.jar platform.jar
+COPY --from=build /app/.mvn .mvn
+COPY --from=build /app/mvnw mvnw
+
+RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install-deps"
+RUN ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install"
 
 EXPOSE 4003
 
