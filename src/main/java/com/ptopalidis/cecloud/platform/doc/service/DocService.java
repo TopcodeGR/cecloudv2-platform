@@ -1,11 +1,10 @@
 package com.ptopalidis.cecloud.platform.doc.service;
 
-import com.ptopalidis.cecloud.platform.exception.error.DocNotFoundError;
-import com.ptopalidis.cecloud.platform.exception.error.SerialNumberNotFoundError;
 import com.ptopalidis.cecloud.platform.doc.domain.Doc;
 import com.ptopalidis.cecloud.platform.doc.domain.dto.CreateDocDto;
 import com.ptopalidis.cecloud.platform.doc.repository.DocRepository;
-import com.ptopalidis.cecloud.platform.doc.transform.CreateDocMapper;
+import com.ptopalidis.cecloud.platform.exception.error.DocNotFoundError;
+import com.ptopalidis.cecloud.platform.exception.error.SerialNumberNotFoundError;
 import com.ptopalidis.cecloud.platform.serialnumber.domain.SerialNumber;
 import com.ptopalidis.cecloud.platform.serialnumber.repository.SerialNumberRepository;
 import com.topcode.web.annotation.HasAccessToResource;
@@ -21,8 +20,10 @@ public class DocService {
 
     private final DocRepository docRepository;
     private final SerialNumberRepository serialNumberRepository;
-    private final CreateDocMapper createDocMapper;
 
+    public Boolean docExists(Long serialNumberId) {
+        return docRepository.findBySerialNumberId(serialNumberId).isPresent();
+    }
 
     @HasAccessToResource
     public Doc getDocBySerialNumber(Long serialNumberId) {
@@ -44,8 +45,6 @@ public class DocService {
                 .productionDate(createDocDto.getProductionDate())
                 .productionManager(createDocDto.getProductionManager())
                 .build();
-        //Doc doc = createDocMapper.toEntity(createDocDto);
-       // doc.setSerialNumber(serialNumber);
 
         return docRepository.save(doc);
     }

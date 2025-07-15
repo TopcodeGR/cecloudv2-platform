@@ -9,75 +9,50 @@
             padding: 0;
         }
         *,body,html{
-            font-family: "Calibri", sans-serif;
+            font-family: "Roboto", sans-serif;
         }
 
         li:not(:last-child) {
             margin:0;
         }
 
-        .header-container{
-            height: 112px;
-            bottom: 0;
-            justify-self: flex-end;
-            display: flex;
-        }
-
-        .header-1 {
-            width:70%;
-            height: 112px;
-            background-color:  #006E95;
-        }
-
-        .header-2 {
-            background-color:  #C5C6C6;
-            height: 112px;
-            width:  112px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .header-3 {
-            flex:1;
-            height:  112px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header-3-1 {
-            flex:1;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            height: 48px;
-            background-color:  #006E95;
-        }
-
-        .header-3-2 {
-            height: 112px;
-            background-color:  #006E95;
-        }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
 </head>
 <body>
 
 <div style="height:100%;display: flex; flex-direction: column; justify-content: space-between;">
-    <div class="header-container">
+    <div style="height: 112px;bottom: 0;justify-self: flex-end; display: flex;">
 
-        <div class="header-1">
-
-        </div>
-        <div class="header-2">
+        <div style= "width:70%;height: 112px;background-color:  #006E95; background: #006E95;">
 
         </div>
-        <div class="header-3">
-            <div class="header-3-1">
+        <div style="   background-color:  #C5C6C6;
+            height: 112px;
+            width:  112px;
+            display: flex;
+            align-items: center;
+            justify-content: center;">
+
+        </div>
+        <div style="     flex:1;
+            height:  112px;
+            display: flex;
+            flex-direction: column;">
+            <div style="   flex:1;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            height: 48px;
+            background-color:  #006E95;">
 
             </div>
-            <div class="header-3-2">
+            <div style="  height: 112px;
+            background-color:  #006E95;">
 
             </div>
         </div>
@@ -94,7 +69,7 @@
                     <p><b>1. </b>Όνομα και διεύθυνση του κατασκευαστή ή του εξουσιοδοτημένου αντιπροσώπου:
                         Name and address of the manufacturer or his authorized representa
                         ve:</p>
-                    <div style="height: 24px;background-color: #D9DADA;">Topalidis Panagiotis</div>
+                    <div style="display:flex; align-items:center; padding: 4px;background-color: #D9DADA;">{{doc.productionManager}}</div>
                 </div>
             </div>
             <div style="flex: 1 1 100%;">
@@ -106,13 +81,13 @@
             <div style="flex: 1 1 100%;">
                 <div style="display: flex; gap: 16px;">
                     <p><b>3. </b>Ονομασία προϊόντος<br>Product name</p>
-                    <div style="height: 16px;background-color: #D9DADA; flex-grow: 1; " >Nek Machine 1</div>
+                    <div style="height:1rem; padding: 0.5rem; display:flex; align-items:center; background-color: #D9DADA; flex-grow: 1; " >{{machine.name}}</div>
                 </div>
             </div>
             <div style="flex: 1 1 100%;">
                 <div style="display: flex; gap: 16px;">
                     <p><b>4. </b>Tύπος-Αριθμός σειράς<br>Type-Serial number</p>
-                    <div style="height: 32px;background-color: #D9DADA; flex-grow: 1;">123456</div>
+                    <div style="display:flex; align-items:center; height:1rem; padding: 0.5rem; background-color: #D9DADA; flex-grow: 1;">{{serialNumber.sn}}</div>
                 </div>
             </div>
             <div style="flex: 1 1 100%;">
@@ -178,7 +153,7 @@
                         </p>
 
                         <div style="width:100%;height: 48px; border-bottom: 2px solid  #006E95;">
-                            <img src="https://ce-cloud-s3.nyc3.digitaloceanspaces.com/test/21/account/signature.png"/>
+                            <img style="width: 6rem; height: 3rem;" src="{{account.signature}}"/>
                         </div>
 
                         <p style="font-size: 8px;">

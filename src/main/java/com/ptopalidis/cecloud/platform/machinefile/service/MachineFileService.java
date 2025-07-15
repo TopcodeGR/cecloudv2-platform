@@ -5,11 +5,11 @@ import com.ptopalidis.cecloud.platform.exception.error.MachineFileNotFoundError;
 import com.ptopalidis.cecloud.platform.exception.error.MachineFileUploadFailedError;
 import com.ptopalidis.cecloud.platform.exception.error.MachineNotFoundError;
 import com.ptopalidis.cecloud.platform.machine.domain.Machine;
+import com.ptopalidis.cecloud.platform.machine.repository.MachineRepository;
 import com.ptopalidis.cecloud.platform.machinefile.config.MachineFileProperties;
 import com.ptopalidis.cecloud.platform.machinefile.domain.MachineFile;
 import com.ptopalidis.cecloud.platform.machinefile.domain.MachineFileSubType;
 import com.ptopalidis.cecloud.platform.machinefile.repository.MachineFileRepository;
-import com.ptopalidis.cecloud.platform.machine.repository.MachineRepository;
 import com.topcode.files.service.S3Service;
 import com.topcode.web.annotation.HasAccessToResource;
 import com.topcode.web.exception.GlobalException;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,13 +31,20 @@ public class MachineFileService {
     private final MachineFileProperties machineFileProperties;
     private final MachineFileRepository machineFileRepository;
 
+
+    public List<MachineFile> getMachineFilesByMachineAndSubType(Long machineId, MachineFileSubType subType) {
+
+        Machine machine = this.machineRepository.findById(machineId).orElseThrow(()-> new GlobalException(new MachineNotFoundError()));
+
+        return machineFileRepository.getMachineFilesByMachineAndSubType(machine, subType);
+    }
+
     @Transactional
     @HasAccessToResource
-    public MachineFile deleteMachineFile(Long fileId){
+    public void deleteMachineFile(Long fileId){
         MachineFile file = machineFileRepository.findById(fileId).orElseThrow(() -> new GlobalException(new MachineFileNotFoundError()));
         this.s3Service.deleteFile(file.getS3key());
         machineFileRepository.deleteById(fileId);
-        return file;
     }
 
     @Transactional
@@ -47,8 +54,7 @@ public class MachineFileService {
 
         try{
             String s3Key = generateS3KeyFromMachine(machine,subType,file);
-            PutObjectResponse uploadFileResponse =
-                    this.s3Service.uploadFile(s3Key,file, ObjectCannedACL.PUBLIC_READ);
+            this.s3Service.uploadFile(s3Key,file, ObjectCannedACL.PUBLIC_READ);
 
             return machineFileRepository.save(MachineFile.builder()
                     .machine(machine)

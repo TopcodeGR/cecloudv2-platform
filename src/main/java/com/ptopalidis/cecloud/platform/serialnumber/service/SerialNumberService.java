@@ -88,7 +88,13 @@ public class SerialNumberService {
         SerialNumber serialNumber = serialNumberRepository.findById(id)
                 .orElseThrow(()-> new GlobalException(new SerialNumberNotFoundError()));
 
-        return qrCodeGeneratorService.generateQRCode(deploymentUrl + "/serial-numbers/" + serialNumber.getId());
+        return qrCodeGeneratorService.generateQRCode(deploymentUrl +
+                "/public-ui" +
+                "/users" +
+                "/" + serialNumber.getMachine().getAccount().getUserid() +
+                "/machines" +
+                "/" + serialNumber.getMachine().getId() +
+                "/serial-numbers/" + serialNumber.getId());
 
     }
 
