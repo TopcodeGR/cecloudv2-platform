@@ -41,10 +41,11 @@ public class MachineFileService {
 
     @Transactional
     @HasAccessToResource
-    public void deleteMachineFile(Long fileId){
+    public MachineFile deleteMachineFile(Long fileId){
         MachineFile file = machineFileRepository.findById(fileId).orElseThrow(() -> new GlobalException(new MachineFileNotFoundError()));
         this.s3Service.deleteFile(file.getS3key());
         machineFileRepository.deleteById(fileId);
+        return file;
     }
 
     @Transactional
