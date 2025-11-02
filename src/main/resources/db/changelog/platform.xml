@@ -292,5 +292,64 @@
             code in ('VIEW_MY_MACHINES', 'PROCESS_MACHINE');
         </rollback>
     </changeSet>
+    <changeSet id="add_account_table_terms_column" author="topal">
+        <sql>
+            ALTER TABLE account ADD has_accepted_terms BOOLEAN NOT NULL DEFAULT FALSE;
+
+        </sql>
+        <rollback>
+            ALTER TABLE account DROP COLUMN has_accepted_term;
+        </rollback>
+    </changeSet>
+    <changeSet id="populate_directives" author="topal">
+        <sql>
+            INSERT INTO file_template (url, name) VALUES ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/low-voltage-directive.hbs', 'low-voltage-directive'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/machinery-regulation.hbs', 'machinery-regulation'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/machinery-directive.hbs', 'machinery-directive'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/emc-directive.hbs', 'emc-directive'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/radio-equiment-directive.hbs', 'radio-equipment-directive'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/rohs-directive.hbs', 'rohs-directive'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/gps-regulation.hbs', 'gps-regulation'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/toys-safety-directive.hbs', 'toys-safety-directive'),
+                                                         ('https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/machinery-regulation-declaration-of-incorporation.hbs', 'machinery-regulation-declaration-of-incorporation');
+
+            INSERT INTO directive (name, doc_file_template) VALUES ('Machinery Regulation  MR 2023/1230 EU',( SELECT id FROM file_template WHERE name='machinery-regulation')),
+                                                                   ('Machinery Directive  MD 2006/42 EE',( SELECT id FROM file_template WHERE name='machinery-directive')),
+                                                                   ('Low Voltage Directive  2014/35  EU',( SELECT id FROM file_template WHERE name='low-voltage-directive')),
+                                                                   ('EMC Directive 2014/30 EU',( SELECT id FROM file_template WHERE name='emc-directive')),
+                                                                   ('Radio Equipment Directive 2014/53 EU',( SELECT id FROM file_template WHERE name='radio-equipment-directive')),
+                                                                   ('RohS Directive 2011/65 EU',( SELECT id FROM file_template WHERE name='rohs-directive')),
+                                                                   ('GPS Regulation 2023/988 EU',( SELECT id FROM file_template WHERE name='gps-regulation')),
+                                                                   ('TOYS SAFETY Directive 2009/48 EU',( SELECT id FROM file_template WHERE name='toys-safety-directive')),
+                                                                   ('Machinery Regulation  Declaration of incorporation 2023/1230 EU',( SELECT id FROM file_template WHERE name='machinery-regulation-declaration-of-incorporation'));
+        </sql>
+        <rollback>
+                DELETE FROM directive WHERE name IN (
+                    'Machinery Regulation  MR 2023/1230 EU',
+                    'Machinery Directive  MD 2006/42 EE',
+                    'Low Voltage Directive  2014/35  EU',
+                    'EMC Directive 2014/30 EU',
+                    'Radio Equipment Directive 2014/53 EU',
+                    'RohS Directive 2011/65 EU',
+                    'GPS Regulation 2023/988 EU',
+                    'TOYS SAFETY Directive 2009/48 EU',
+                    'Machinery Regulation  Declaration of incorporation 2023/1230 EU'
+                );
+
+                DELETE FROM file_template WHERE name IN (
+                    'machinery-regulation',
+                    'machinery-directive',
+                    'low-voltage-directive',
+                    'emc-directive',
+                    'radio-equipment-directive',
+                    'rohs-directive',
+                    'gps-regulation',
+                    'toys-safety-directive',
+                    'machinery-regulation-declaration-of-incorporation'
+                );
+
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
 
+<!--      -->

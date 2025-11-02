@@ -49,7 +49,12 @@ public class DocController {
     public ResponseEntity<byte[]> generateDOCPdf(@PathVariable Long machineId, @PathVariable Long snId) throws IOException {
 
         Doc doc = this.docService.getDocBySerialNumber(snId);
-        ByteArrayOutputStream outputStream = this.pdfGeneratorService.generatePdf("DOC",doc);
+        ByteArrayOutputStream outputStream = this.pdfGeneratorService.generatePdf(
+                doc
+                .getSerialNumber()
+                        .getMachine()
+                        .getDirective().getDocFileTemplate().getName(),
+                doc);
         return ResponseEntity.ok().body(outputStream.toByteArray());
     }
 }

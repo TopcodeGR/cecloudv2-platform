@@ -45,5 +45,8 @@ public class CECloudv2Account extends Account {
 
     @Column(name = "signature")
     private String signature;
+
+    @Column(name = "has_accepted_terms")
+    private Boolean hasAcceptedTerms;
 }
 

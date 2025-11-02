@@ -1,0 +1,147 @@
+<html lang="el">
+<head>
+    <style>
+        p{
+            margin:1.6px;
+        }
+        body,html {
+            margin:0;
+            padding: 0;
+        }
+        *,body,html{
+            font-family: "Calibri", sans-serif;
+        }
+
+        li:not(:last-child) {
+            margin:0;
+        }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+</head>
+<body>
+
+<div style="height:100%;display: flex; flex-direction: column; ">
+    <div style="height: 112px;justify-self: flex-end; display: flex;">
+
+        <div style= "width:100%;height: 112px;background-color: #B8CCD9; background: #B8CCD9;">
+
+        </div>
+
+    </div>
+    <div style="display: flex; gap:16px; margin-right: 32px;  align-items: flex-end; margin-top: 16px;">
+        <hr style="border:2px solid #B8CCD9; flex-grow: 1; height: 0"/>
+        <p style="font-weight: bold; font-size: 24px">EE Δήλωση Συμμόρφωσης <br> EU Declaration of Conformity</p>
+    </div>
+
+    <div>
+        <div style="display: flex; flex-wrap: wrap;margin-left: 32px; margin-right: 32px;  column-gap: 16px; row-gap:  12px; margin-top: 8px;">
+            <div style="flex: 1 1 100%;">
+                <div>
+                    <p style="font-size: 12px;"><b>1. </b>Όνομα και διεύθυνση του κατασκευαστή ή του εξουσιοδοτημένου αντιπροσώπου:
+                        <br>Name and address of the manufacturer or his authorized representative:</p>
+                    <div style="display:flex; align-items:center; height:1rem; padding: 0.5rem; background-color: #D9DADA;  flex-grow: 1"><p style="font-size: 12px;">{{doc.productionManager}}</p></div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div>
+                    <p style="font-size: 12px;"><b>2. </b>Η παρούσα δήλωση συμμόρφωσης εκδίδεται υπό την αποκλειστική ευθύνη του κατασκευαστή
+                        <br>This declaration of conformity is issued under the sole responsibility of the manufacturer.</p>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; gap: 16px;">
+                    <p style="font-size: 12px;"><b>3. </b>Ονομασία προϊόντος<br>Product name</p>
+                    <div style="height:1rem; padding: 0.5rem; display:flex; align-items:center; background-color: #D9DADA; flex-grow: 1; ">
+                        <p style="font-size: 12px;">{{machine.name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; gap: 16px;">
+                    <p style="font-size: 12px;"><b>4. </b>Tύπος-Αριθμός σειράς<br>Type-Serial number</p>
+                    <div style="display:flex; align-items:center; height:1rem; padding: 0.5rem; background-color: #D9DADA; flex-grow: 1;"><p style="font-size: 12px;">{{serialNumber.sn}}</p></div>
+                </div>
+            </div>
+
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p style="font-size: 12px;"><b>5. </b> Το αντικέιμενο της δήλωσης που περιγράφηκε παραπάνω είναι εναρμονισμένο με την σχετική κοινοτική νομοθεσία
+                        <br>The object of the declaration described above is in conformity with the relevant Union harmonisation legislation</p>
+                    <div style="height: 56px;background-color: #D9DADA; flex-grow: 1;"></div>
+                </div>
+            </div>
+
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p style="font-size: 12px;"> <b>6. </b>Αναφορές στα σχετικά εναρμονισμένα πρότυπα που
+                        χρησιμοποιούνται ή σε άλλες τεχνικές προδιαγραφές
+                        σε σχέση με τα οποία δηλώνεται η συμμόρφωση<br>References to the relevant harmonised standards used
+                        or references to the other technical specifications in
+                        relation to which conformity is declared:</p>
+                    <div style="height: 80px;background-color: #D9DADA; flex-grow: 1;"></div>
+                </div>
+            </div>
+
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p style="font-size: 12px;"> <b>7. </b>Διαπιστευμένος-Κοινοποιημένος Οργανισμός ( ονομασία-αρ.διαπίστευσης) που διενήργησε έλεγχο και εξέδωσε
+                        πιστοποιητικό (αρ.) για την αξιολόγηση της συμμόρφωσης<br>Accredited - Notified Body (name - accreditation number)
+                        which carried out the verification and issued a certificate (no.) for the assessment of conformity</p>
+                    <div style="height: 64px;background-color: #D9DADA; flex-grow: 1;"></div>
+                </div>
+            </div>
+
+
+            <div style="flex: 1 1 100%;">
+                <div style="display: flex; gap: 16px;">
+                    <div style="flex:1;display: flex; flex-direction: column;">
+                        <p style="font-size: 12px;"><b>8. </b>Πρόσθετες Πληροφορίες
+                            <br>Additional Information
+
+                        </p>
+                        <p style="font-size: 8px;">
+                            Όνομα και διεύθυνση του εξουσιοδοτημένου να καταρτίσει τον τεχνικό φάκελο
+                            <br>name and address of the person authorised to compile the technical file
+                        </p>
+
+                    </div>
+                    <div style="flex:1;display: flex; flex-direction: column;">
+                        <p style="font-size: 8px;">
+                            Υπογραφή για λογαριασμό και εξ ονόματος του κατασκευαστή
+                            <br>Signed and of behalf of manufacture
+                        </p>
+
+                        <div style="width:100%;height: 96px; border-bottom: 2px solid  #B8CCD9;">
+                            <img style="width: 6rem; height: 3rem;" src="{{account.signature}}"/>
+                        </div>
+
+                        <p style="font-size: 8px;">
+                            Τόπος & ημερομηνία
+                            <br>Place & date
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div style="height: 112px; bottom: 0; justify-self: flex-end; display: flex; justify-content: space-between; margin-top: auto; background-color: #B8CCD9;">
+        <div>
+            <img style="height: 112px;" src="https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/quality.png"/>
+        </div>
+        <div>
+            <img style="height: 112px;" src="https://ce-cloud-s3.nyc3.digitaloceanspaces.com/templates/ce-white.png"/>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class DocTemplateParamsProvider implements TemplateParamsProvider<Doc> {
+public class LowVoltageDirectiveTemplateParamsProvider implements TemplateParamsProvider<Doc> {
 
     @Override
     public Map<String, Object> provideParams(Doc doc) {
@@ -21,6 +21,6 @@ public class DocTemplateParamsProvider implements TemplateParamsProvider<Doc> {
 
     @Override
     public String getTemplateName() {
-        return "DOC";
+        return "low-voltage-directive";
     }
 }
